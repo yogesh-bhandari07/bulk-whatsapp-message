@@ -23,7 +23,7 @@ from tkinter import messagebox
 
 # configration of Tkinter window
 root=Tk()
-root.iconbitmap('window.ico')
+root.iconbitmap('./window.ico')
 root.geometry('750x550')
 root.title('Whatsapp')
 f = font.Font(family='System', size=14, weight="bold")
@@ -35,8 +35,14 @@ options = Options()
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 options.add_argument("--profile-directory=Default")
 
+
+rootUserPath=os.path.expandvars("%userprofile%")
+path= '/AppData/Local/Google/Chrome/User Data/'
+chromePath=rootUserPath+path
+chromePath=chromePath.replace("\\" , '/')
+
 # Please Change User as per your user
-options.add_argument("C:/Users/yk992/AppData/Local/Google/Chrome/User Data/")
+options.add_argument(chromePath)
 
 os.system("")
 os.environ["WDM_LOG_LEVEL"] = "0" 
@@ -91,7 +97,7 @@ Send Whatsapp Messages in Bulk
 '''
 def start():
     messageText=area.get(1.0, "end-1c")
-    with open("message.txt","w") as nFile:
+    with open("./message.txt","w") as nFile:
         nFile.write(messageText)
     area.config(state='disabled')
     fileUpload.config(state='disabled')
@@ -148,7 +154,7 @@ thanksMessage.grid(row=3,column=3,padx=30)
 
 # this is function use to send message using selenium and driver
 def send():
-    f = open("message.txt", "r")
+    f = open("./message.txt", "r")
     message = f.read()
     f.close()
 
@@ -158,7 +164,7 @@ def send():
     message = quote(message)
 
     numbers = []
-    f = open("numbers.txt", "r")
+    f = open("./numbers.txt", "r")
     for line in f.read().splitlines():
         if line.strip() != "":
             numbers.append(line.strip())
